@@ -1,5 +1,7 @@
 package com.gogo.crm.dao;
 
+import com.gogo.crm.common.page.PageResult;
+
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,18 @@ public interface IBaseDao<T> {
     public void deleteById(Integer id);
 
     /**
+     * 根据多个id删除数据
+     * @param id
+     */
+    public void deleteByIds(String id);
+
+    /**
+     * 根据多个id删除数据
+     * @param id
+     */
+    public void deleteByIds(List<Integer> id);
+
+    /**
      * 根据对象修改对象
      * @param t
      */
@@ -35,6 +49,17 @@ public interface IBaseDao<T> {
     public T save(T t);
 
 
+    /**
+     * 根据条件查询  并返回list
+     * @param mao
+     * @return
+     */
     public List<T> getByCondition(Map<String,Object> mao);
+
+    /**
+     * 获取分页返回的数据
+     * @return
+     */
+    public PageResult<T> getPageResult(Map<String,Object> map);
 
 }
