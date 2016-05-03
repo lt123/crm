@@ -1,5 +1,8 @@
 package com.gogo.crm.service;
 
+import com.gogo.crm.dao.IBaseDao;
+import com.gogo.crm.dao.IUserDao;
+import com.gogo.crm.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,15 @@ import javax.sql.DataSource;
 @ContextConfiguration("classpath:spring-root.xml")
 public class UserServiceTest {
     @Autowired
-    private DataSource dataSource;
+    private IUserService userService;
 
     @Test
     public void testSave() throws Exception {
-        System.out.println(dataSource.getConnection());
+        User u = new User();
+        u.setName("test01");
+        u.setPassword("pswd01");
+//        System.out.println(userService.save(u));
+        System.out.println(userService.getById(1));
     }
+
 }

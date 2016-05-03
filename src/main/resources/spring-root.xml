@@ -24,6 +24,12 @@
 		</property>
 	</bean>
 
+	<!-- 自动扫描特定注解类并纳入容器管理 -->
+	<context:component-scan base-package="com.gogo.crm">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />

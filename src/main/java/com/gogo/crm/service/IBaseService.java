@@ -1,16 +1,15 @@
-package com.gogo.crm.dao;
+package com.gogo.crm.service;
 
 import com.gogo.crm.common.page.PageResult;
-import org.springframework.stereotype.Repository;
+import com.gogo.crm.dao.IBaseDao;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by admin on 2016/4/28.
+ * Created by admin on 2016/5/3.
  */
-@Repository
-public interface IBaseDao<T> {
+public interface IBaseService<T> {
 
     /**
      * 根据id查询数据
@@ -27,15 +26,15 @@ public interface IBaseDao<T> {
 
     /**
      * 根据多个id删除数据
-     * @param ids
+     * @param id
      */
-    public void deleteByIds(String ids);
+    public void deleteByIds(String id);
 
     /**
      * 根据多个id删除数据
-     * @param ids
+     * @param id
      */
-    public void deleteByIds(List<Integer> ids);
+    public void deleteByIds(List<Integer> id);
 
     /**
      * 根据对象修改对象
@@ -63,5 +62,4 @@ public interface IBaseDao<T> {
      * @return
      */
     public PageResult<T> getPageResult(Map<String,Object> map);
-
 }
