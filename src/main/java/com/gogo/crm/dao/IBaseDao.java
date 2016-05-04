@@ -31,7 +31,7 @@ public interface IBaseDao<T,PK> {
      * 根据多个id删除数据
      * @param ids
      */
-    public void deleteByIds(String ids);
+    public void deleteByIds(List<Integer> ids);
 
     /**
      * 根据对象修改对象
@@ -53,4 +53,10 @@ public interface IBaseDao<T,PK> {
      */
     public List<T> getByCondition(Map<String,Object> map);
 
+    /**
+     * 根据条件查询总数
+     * @param map
+     * @return
+     */
+    Integer getCountByCondition(Map<String, Object> map);
 }

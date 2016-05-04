@@ -10,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2016/5/3.
@@ -27,11 +30,37 @@ public class UserServiceTest {
 
     @Test
     public void testDeleteById() throws Exception {
-        userService.deleteById(9);
+        userService.deleteById(11);
     }
 
     @Test
     public void testDeleteByIds() throws Exception {
-        userService.deleteByIds("4,5,6,7,8");
+        userService.deleteByIds("5,6,7");
+    }
+
+    @Test
+    public void testSave() throws Exception {
+        User u = new User();
+        u.setName("admin");
+        u.setPassword("admin");
+        userService.save(u);
+    }
+
+    @Test
+    public void testGetByCondition() throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("password","asdasd");
+        List<User> users = userService.getByCondition(map);
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testGetCountByCondition() throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        //map.put("password","asdasd");
+        Integer count = userService.getCountByCondition(map);
+        System.out.println(count);
     }
 }

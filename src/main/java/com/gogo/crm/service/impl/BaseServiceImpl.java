@@ -7,6 +7,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,12 @@ public class BaseServiceImpl<T,PK> implements IBaseService<T,PK> {
     @Override
     @Transactional
     public void deleteByIds(String ids) {
-        baseDao.deleteByIds(ids);
+        List<Integer> list = new ArrayList<>();
+        String[] id = ids.split(",");
+        for (String s : id) {
+            list.add(Integer.parseInt(s));
+        }
+        baseDao.deleteByIds(list);
     }
 
     @Override
@@ -54,7 +60,14 @@ public class BaseServiceImpl<T,PK> implements IBaseService<T,PK> {
     }
 
     @Override
+    public Integer getCountByCondition(Map<String,Object> map){
+        return baseDao.getCountByCondition(map);
+    }
+
+    @Override
     public PageResult<T> getPageResult(Map<String, Object> map) {
+        Integer count = baseDao.getCountByCondition(map);
+        List<T> row = baseDao.getByCondition(map);
         return null;
     }
 }

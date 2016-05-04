@@ -52,6 +52,13 @@ public interface IBaseService<T,PK> {
     public List<T> getByCondition(Map<String,Object> map);
 
     /**
+     * 根据条件查询总条数
+     * @param map
+     * @return
+     */
+    public Integer getCountByCondition(Map<String,Object> map);
+
+    /**
      * 获取分页返回的数据
      * @return
      */
