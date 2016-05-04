@@ -21,12 +21,17 @@ public class UserServiceTest {
     private IUserService userService;
 
     @Test
-    public void testSave() throws Exception {
-        User u = new User();
-        u.setName("test01");
-        u.setPassword("pswd01");
-//        System.out.println(userService.save(u));
+    public void testGetById() throws Exception {
         System.out.println(userService.getById(1));
     }
 
+    @Test
+    public void testDeleteById() throws Exception {
+        userService.deleteById(9);
+    }
+
+    @Test
+    public void testDeleteByIds() throws Exception {
+        userService.deleteByIds("4,5,6,7,8");
+    }
 }

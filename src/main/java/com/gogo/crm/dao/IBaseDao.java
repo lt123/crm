@@ -7,23 +7,25 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by admin on 2016/4/28.
+ * 所有dao的公共方法
+ * @param <T>  model类型
+ * @param <PK>  主键类型
  */
 @Repository
-public interface IBaseDao<T> {
+public interface IBaseDao<T,PK> {
 
     /**
      * 根据id查询数据
      * @param id
      * @return
      */
-    public T getById(Integer id);
+    public T getById(PK id);
 
     /**
      * 根据id删除数据
      * @param id
      */
-    public void deleteById(Integer id);
+    public void deleteById(PK id);
 
     /**
      * 根据多个id删除数据
@@ -32,36 +34,23 @@ public interface IBaseDao<T> {
     public void deleteByIds(String ids);
 
     /**
-     * 根据多个id删除数据
-     * @param ids
-     */
-    public void deleteByIds(List<Integer> ids);
-
-    /**
      * 根据对象修改对象
      * @param t
      */
     public void update(T t);
 
     /**
-     * 保存对象并返回对象
+     * 保存对象
      * @param t
-     * @return
      */
-    public T save(T t);
+    public void save(T t);
 
 
     /**
      * 根据条件查询  并返回list
-     * @param mao
+     * @param map
      * @return
      */
-    public List<T> getByCondition(Map<String,Object> mao);
-
-    /**
-     * 获取分页返回的数据
-     * @return
-     */
-    public PageResult<T> getPageResult(Map<String,Object> map);
+    public List<T> getByCondition(Map<String,Object> map);
 
 }

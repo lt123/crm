@@ -9,32 +9,26 @@ import java.util.Map;
 /**
  * Created by admin on 2016/5/3.
  */
-public interface IBaseService<T> {
+public interface IBaseService<T,PK> {
 
     /**
      * 根据id查询数据
      * @param id
      * @return
      */
-    public T getById(Integer id);
+    public T getById(PK id);
 
     /**
      * 根据id删除数据
      * @param id
      */
-    public void deleteById(Integer id);
+    public void deleteById(PK id);
 
     /**
      * 根据多个id删除数据
-     * @param id
+     * @param ids
      */
-    public void deleteByIds(String id);
-
-    /**
-     * 根据多个id删除数据
-     * @param id
-     */
-    public void deleteByIds(List<Integer> id);
+    public void deleteByIds(String ids);
 
     /**
      * 根据对象修改对象
@@ -52,10 +46,10 @@ public interface IBaseService<T> {
 
     /**
      * 根据条件查询  并返回list
-     * @param mao
+     * @param map
      * @return
      */
-    public List<T> getByCondition(Map<String,Object> mao);
+    public List<T> getByCondition(Map<String,Object> map);
 
     /**
      * 获取分页返回的数据

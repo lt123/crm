@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 /**
  * Created by admin on 2016/5/3.
  */
-public interface IUserService extends  IBaseService<User> {
+public interface IUserService extends  IBaseService<User,Integer> {
 
 }

@@ -11,6 +11,6 @@ import org.springframework.stereotype.Service;
  * Created by admin on 2016/5/3.
  */
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
+public class UserServiceImpl extends BaseServiceImpl<User,Integer> implements IUserService {
 
 }
