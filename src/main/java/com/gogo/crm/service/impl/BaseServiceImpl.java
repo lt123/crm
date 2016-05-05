@@ -1,6 +1,7 @@
 package com.gogo.crm.service.impl;
 
 import com.gogo.crm.common.page.PageResult;
+import com.gogo.crm.common.utils.MapUtils;
 import com.gogo.crm.dao.IBaseDao;
 import com.gogo.crm.service.IBaseService;
 import org.apache.commons.lang.ObjectUtils;
@@ -66,8 +67,14 @@ public class BaseServiceImpl<T,PK> implements IBaseService<T,PK> {
 
     @Override
     public PageResult<T> getPageResult(Map<String, Object> map) {
-        Integer count = baseDao.getCountByCondition(map);
-        List<T> row = baseDao.getByCondition(map);
+        if(MapUtils.validataMap(map,"currentPage,pageSize")) {
+            Integer count = baseDao.getCountByCondition(map);
+            List<T> rows = baseDao.getByCondition(map);
+            Integer currentPage = Integer.parseInt(map.get("currentPage").toString());
+            Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
+        }
+
+
         return null;
     }
 }
