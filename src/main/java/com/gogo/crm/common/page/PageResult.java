@@ -12,6 +12,17 @@ public class PageResult<T> {
     private Integer currentPage;
     private List<T> rows;
 
+    public PageResult(Integer currentPage, Integer pageSize, Integer count, List<T> rows) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.rows = rows;
+        this.totalCount = count;
+        this.totalPage = ((count - 1) / this.pageSize) + 1;
+    }
+
+    public PageResult() {
+    }
+
     public List<T> getRows() {
         return rows;
     }

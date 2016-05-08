@@ -47,6 +47,12 @@
                 password=#{password}
             </if>
         </where>
+        <if test="sort != null and sort == true">
+            order by id desc
+        </if>
+        <if test="currentPage != null and pageSize != null">
+            limit #{currentPage},#{pageSize}
+        </if>
     </select>
     
     <select id="getCountByCondition" parameterType="map" resultType="int">

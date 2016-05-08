@@ -67,14 +67,11 @@ public class BaseServiceImpl<T,PK> implements IBaseService<T,PK> {
 
     @Override
     public PageResult<T> getPageResult(Map<String, Object> map) {
-        if(MapUtils.validataMap(map,"currentPage,pageSize")) {
-            Integer count = baseDao.getCountByCondition(map);
-            List<T> rows = baseDao.getByCondition(map);
-            Integer currentPage = Integer.parseInt(map.get("currentPage").toString());
-            Integer pageSize = Integer.parseInt(map.get("pageSize").toString());
-        }
-
-
-        return null;
+        Integer currentPage = map.get("currentPage") == null ? 1:Integer.parseInt(map.get("currentPage").toString());
+        Integer pageSize = map.get("pageSize") == null ? 10:Integer.parseInt(map.get("pageSize").toString());
+        map.put("currentPage",(currentPage - 1) * pageSize);
+        Integer count = baseDao.getCountByCondition(map);
+        List<T> rows = baseDao.getByCondition(map);
+        return new PageResult<T>(currentPage,pageSize,count,rows);
     }
 }

@@ -1,5 +1,6 @@
 package com.gogo.crm.service;
 
+import com.gogo.crm.common.page.PageResult;
 import com.gogo.crm.dao.IBaseDao;
 import com.gogo.crm.dao.IUserDao;
 import com.gogo.crm.model.User;
@@ -62,5 +63,15 @@ public class UserServiceTest {
         //map.put("password","asdasd");
         Integer count = userService.getCountByCondition(map);
         System.out.println(count);
+    }
+
+    @Test
+    public void testGetPageResult() throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("pageSize",3);
+        map.put("currentPage",2);
+//        map.put("sort",true);
+        PageResult<User> pageResult = userService.getPageResult(map);
+        System.out.println(pageResult);
     }
 }
