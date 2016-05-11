@@ -15,7 +15,7 @@
 	<mvc:default-servlet-handler />
 
 	<!-- 默认首页 -->
-	<mvc:view-controller path="/" view-name="forward:/user/test"/>
+	<mvc:view-controller path="/" view-name="forward:/main/login"/>
 
 	<!-- 自动扫描特定注解类并纳入容器管理 -->
 	<context:component-scan base-package="com.gogo.crm.web.controller">
