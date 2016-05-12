@@ -45,6 +45,7 @@ public class UserServiceTest {
         u.setName("admin");
         u.setPassword("admin");
         userService.save(u);
+        System.out.println(u);
     }
 
     @Test

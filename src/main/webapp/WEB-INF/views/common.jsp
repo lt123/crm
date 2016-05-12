@@ -5,4 +5,4 @@
 <link href="/js/jquery-easyui/themes/icon.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery-easyui/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>

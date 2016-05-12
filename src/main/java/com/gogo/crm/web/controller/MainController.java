@@ -17,7 +17,7 @@ public class MainController {
      */
     @RequestMapping("/login")
     public String login(){
-        return "login";
+        return "/login.jsp";
     }
 
     /**
@@ -26,6 +26,6 @@ public class MainController {
      */
     @RequestMapping("/index")
     public String index(){
-        return "index";
+        return "/index.jsp";
     }
 }
