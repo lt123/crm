@@ -23,4 +23,7 @@ public class UserController {
         m.put("pswd","admin");
         return m;
     }
+
+
+
 }
