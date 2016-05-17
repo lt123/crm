@@ -42,7 +42,7 @@ public class UserServiceTest {
     @Test
     public void testSave() throws Exception {
         User u = new User();
-        u.setName("admin");
+        u.setUsername("name");
         u.setPassword("admin");
         userService.save(u);
         System.out.println(u);

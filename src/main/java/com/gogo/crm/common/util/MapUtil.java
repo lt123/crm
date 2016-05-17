@@ -24,9 +24,14 @@ public class MapUtil {
         Map<String,Object> map = new HashMap<>();
         if(args != null && args.length % 2 == 0){
             for (int i = 0; i < args.length; i++) {
-            
+                map.put(args[i++].toString(),args[i]);
             }
         }
         return map;
+    }
+
+    public static void main(String[] args) {
+        Map<String, Object> map = createMap("user", "a", "pswd", "b","");
+        System.out.println("args = [" + map + "]");
     }
 }

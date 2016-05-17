@@ -32,7 +32,7 @@ public class UserController {
         String code = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY).toString();
         //验证码正确
         if(securityCode.equals(code)) {
-            Ref
+
         }
         return new RespData();
     }
