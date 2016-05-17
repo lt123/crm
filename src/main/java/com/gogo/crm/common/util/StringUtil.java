@@ -1,6 +1,4 @@
-package com.gogo.crm.common.utils;
-
-import com.alibaba.druid.sql.visitor.functions.If;
+package com.gogo.crm.common.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,9 +6,9 @@ import java.util.regex.Pattern;
 /**
  * Created by admin on 2016/5/5.
  */
-public class StringUtils {
+public class StringUtil {
 
-    private StringUtils(){}
+    private StringUtil(){}
 
     public static boolean isNotBlank(String str) {
         if(str == null || "".equals(str)) {
