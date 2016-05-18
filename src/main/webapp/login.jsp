@@ -45,8 +45,8 @@
 <body style="width:100%;height:100%;">
 
     <div id="btn">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="$('#loginForm').form('submit')">登录</a>
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#loginForm').form('reset')">重置</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="$('#dataForm').form('submit')">登录</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#dataForm').form('reset')">重置</a>
     </div>
 
     <div class="easyui-dialog" id="userDialog" style="width:300px;height:230px;padding: 15px;" data-options="title:'用户登录',buttons:'#btn',modal:true,closable:false">
