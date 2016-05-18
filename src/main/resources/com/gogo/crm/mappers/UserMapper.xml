@@ -5,13 +5,98 @@
 <mapper namespace="com.gogo.crm.dao.IUserDao">
 
     <resultMap id="userMap" type="User">
-        <result property="name" column="name" />
         <result property="id" column="id" />
+        <result property="username" column="username" />
         <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="age" column="age" />
+        <result property="sex" column="sex" />
+        <result property="input_time" column="inputTime" />
+        <result property="status" column="status" />
+        <result property="loginIp" column="login_ip" />
+        <result property="loginTime" column="login_time" />
+        <result property="lastLoginIp" column="last_login_ip" />
+        <result property="lastLoginTime" column="last_login_time" />
     </resultMap>
 
+    <sql id="columnList">
+        username,password,email,age,sex,input_time,status,login_ip,login_time,last_login_ip,last_login_time
+    </sql>
+
+    <sql id="columnWhere">
+        <if test = "username != null">
+            and username = #{username}
+        </if>
+        <if test = "password != null">
+            and password = #{password}
+        </if>
+        <if test = "email != null">
+            and email = #{email}
+        </if>
+        <if test = "age!= null">
+            and age = #{age}
+        </if>
+        <if test = "sex != null">
+            and sex = #{sex}
+        </if>
+        <if test = "inputTime != null">
+            and input_time = #{inputTime}
+        </if>
+        <if test = "status != null">
+            and status = #{status}
+        </if>
+        <if test = "loginIp != null">
+            and login_ip = #{loginIp}
+        </if>
+        <if test = "loginTime != null">
+            and login_time = #{loginTime}
+        </if>
+        <if test = "lastLoginIp != null">
+            and last_login_ip = #{lastLoginIp}
+        </if>
+        <if test = "lastLoginTime != null">
+            and last_login_time = #{lastLoginTime}
+        </if>
+    </sql>
+
+    <sql id="columnUpdate">
+        <if test = "username != null">
+            ,username = #{username}
+        </if>
+        <if test = "password != null">
+            ,password = #{password}
+        </if>
+        <if test = "email != null">
+            ,email = #{email}
+        </if>
+        <if test = "age!= null">
+            ,age = #{age}
+        </if>
+        <if test = "sex != null">
+            ,sex = #{sex}
+        </if>
+        <if test = "inputTime != null">
+            ,input_time = #{inputTime}
+        </if>
+        <if test = "status != null">
+            ,status = #{status}
+        </if>
+        <if test = "loginIp != null">
+            ,login_ip = #{loginIp}
+        </if>
+        <if test = "loginTime != null">
+            ,login_time = #{loginTime}
+        </if>
+        <if test = "lastLoginIp != null">
+            ,last_login_ip = #{lastLoginIp}
+        </if>
+        <if test = "lastLoginTime != null">
+            ,last_login_time = #{lastLoginTime}
+        </if>
+    </sql>
+
     <select id="getById" parameterType="int" resultMap="userMap">
-        select id,name,password from user where id = #{id}
+        select <include refid="columnList" /> from user where id = #{id}
     </select>
 
     <delete id="deleteById" parameterType="int">
@@ -27,25 +112,22 @@
 
     <update id="update" parameterType="User">
         update user
-        set name=#{name},password=#{password}
+        <set>
+            <include refid="columnUpdate" />
+        </set>
         where id = #{id}
     </update>
 
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(name,password)
-        values(#{name},#{password})
+        insert into user(<include refid="columnList" />)
+        values(#{username},#{password},#{email},#{age},#{sex},#{inputTime},#{status},#{loginIp},#{loginTime},#{lastLoginIp},#{lastLoginTime})
     </insert>
 
     <select id="getByCondition" parameterType="map" resultMap="userMap">
-        select id,name,password
+        select id,<include refid="columnList" />
         from user
         <where>
-            <if test="name != null and name != ''">
-                name=#{name}
-            </if>
-            <if test="password != null and password != ''">
-                password=#{password}
-            </if>
+           <include refid="columnWhere" />
         </where>
         <if test="sort != null and sort == true">
             order by id desc
@@ -58,12 +140,7 @@
     <select id="getCountByCondition" parameterType="map" resultType="int">
         select count(1) from user
         <where>
-            <if test="name != null and name != ''">
-                name=#{name}
-            </if>
-            <if test="password != null and password != ''">
-                password=#{password}
-            </if>
+           <include refid="columnWhere" />
         </where>
     </select>
 </mapper>

@@ -7,9 +7,9 @@
     "children": [
       {
         "id": "11",
-        "text": "客户管理",
+        "text": "用户管理",
         "attributes" : {
-          "url":"/1.jsp"
+          "url":"/user"
         }
       },
       {

@@ -1,5 +1,8 @@
 package com.gogo.crm.common.resp;
 
+import com.gogo.crm.common.constans.CodeConstans;
+import com.gogo.crm.common.util.PropertiesUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,12 @@ public class RespData {
     private Object data;
 
     public RespData() {
+    }
+
+    public RespData(String code) {
+        this.code = code;
+        String msg = PropertiesUtil.getInstance().load("resources").get(code).toString();
+        this.msg = msg;
     }
 
     public RespData(String code, Object data) {
@@ -64,4 +73,5 @@ public class RespData {
                 ", data=" + data +
                 '}';
     }
+
 }

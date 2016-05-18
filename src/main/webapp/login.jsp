@@ -15,21 +15,25 @@
     <script type="text/javascript">
 
         $(function(){
-            $("#loginForm").form({
+            $("#dataForm").form({
                 onSubmit:function(){
-                  var valid = $("#loginForm").form("validate");
-                    console.debug("valid>>" + valid);
-                    if(valid) {
-                        return true;
-                    }else{
-                        return false;
-                    }
+                  var valid = $("#dataForm").form("validate");
+                        return valid;
                 },
                 success:function(data){
                     data = $.parseJSON(data);
-                    console.debug(data)
+                    if("1001"==data.code){
+                        $("#userDialog").dialog("close");
+                        $.alert(data.msg,function(){
+                            location.href="<%=path%>/main/index";
+                        })
+                    }else{
+                        $.error(data.msg)
+                    }
                 }
-            })
+            });
+
+
         })
 
         function refreshCaptcha(){
@@ -45,16 +49,16 @@
         <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#loginForm').form('reset')">重置</a>
     </div>
 
-    <div class="easyui-dialog" style="width:300px;height:230px;padding: 15px;" data-options="title:'用户登录',buttons:'#btn',modal:true">
-        <form action="/user/login" method="post" id="loginForm">
+    <div class="easyui-dialog" id="userDialog" style="width:300px;height:230px;padding: 15px;" data-options="title:'用户登录',buttons:'#btn',modal:true,closable:false">
+        <form action="/user/login" method="post" id="dataForm">
             <table>
                 <tr>
                     <td>用户名：</td>
-                    <td><input type="text" name="username" class="easyui-validatebox" data-options="required:true"/></td>
+                    <td><input type="text" name="username" class="easyui-validatebox" data-options="required:true" value="admin"/></td>
                 </tr>
                 <tr>
                     <td>密&nbsp;码：</td>
-                    <td><input type="password" name="password"  class="easyui-validatebox" data-options="required:true"/></td>
+                    <td><input type="password" name="password"  class="easyui-validatebox" data-options="required:true" value="admin"/></td>
                 </tr>
                 <tr>
                     <td>

@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@include file="/WEB-INF/views/common.jsp"%>
 
 <script type="text/javascript">
@@ -50,7 +49,7 @@
                 <div id="mainTabs" class="easyui-tabs" data-options="border:false,fit:true">
                     <div title="欢迎界面"  style="margin-top: 20px;">
                         欢迎使用CRM管理系统<br/>
-                        当前用户：root<br />
+                        当前用户：${sessionScope.user.username}<br />
                         上次登录时间：xxxx-xx-xx<br />
                         上次登录IP：192.168.1.1<br />
                     </div>

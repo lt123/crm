@@ -63,6 +63,10 @@ public class PageResult<T> {
         this.currentPage = currentPage;
     }
 
+    public Integer getTotal(){
+        return totalCount;
+    }
+
     @Override
     public String toString() {
         return "PageResult{" +

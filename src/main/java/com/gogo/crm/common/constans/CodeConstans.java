@@ -29,4 +29,9 @@ public interface CodeConstans {
      * 登录失败
      */
     public final static String CODE_LOGIN_FAILED = "1002";
+
+    /**
+     * 验证码失败
+     */
+    public final static String CODE_SECURITY_CODE_FAILED = "1003";
 }

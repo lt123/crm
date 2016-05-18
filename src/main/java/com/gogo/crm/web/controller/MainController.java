@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main")
 public class MainController {
 
-
     /**
      * 登录界面
      * @return
      */
     @RequestMapping("/login")
     public String login(){
-        return "/login.jsp";
+        return "redirect:/login.jsp";
     }
+
 
     /**
      * 系统界面
@@ -26,6 +26,6 @@ public class MainController {
      */
     @RequestMapping("/index")
     public String index(){
-        return "/index.jsp";
+        return "main";
     }
 }
