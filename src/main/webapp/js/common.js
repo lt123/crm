@@ -25,3 +25,8 @@ window.formatUtil = {
         return value == 0 ? "女" : "男";
     }
 }
+
+$.extend($.fn.dialog.defaults, {
+    modal:true,
+    closed:true
+});

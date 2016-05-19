@@ -3,18 +3,18 @@ package com.gogo.crm.web.controller;
 import com.gogo.crm.common.constans.CodeConstans;
 import com.gogo.crm.common.page.PageResult;
 import com.gogo.crm.common.resp.RespData;
+import com.gogo.crm.common.util.DateUtil;
+import com.gogo.crm.common.util.HttpUtil;
 import com.gogo.crm.common.util.MapUtil;
 import com.gogo.crm.model.User;
 import com.gogo.crm.service.IUserService;
 import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +27,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @ResponseBody
     public RespData login(String username,String password, String securityCode, HttpServletRequest request){
@@ -36,7 +37,14 @@ public class UserController {
             Map<String, Object> map = MapUtil.createMap("username", username, "password", password);
             List<User> users = userService.getByCondition(map);
             if(users != null && users.size() > 0) {
-                request.getSession().setAttribute("user",users.get(0));
+                User user = users.get(0);
+                user.setLastLoginIp(user.getLoginIp());
+                user.setLastLoginTime(user.getLoginTime());
+                user.setLoginTime(new Date());
+                user.setLoginIp(HttpUtil.getIpAddress(request));
+                userService.update(user);
+
+                request.getSession().setAttribute("user",user);
                 return new RespData(CodeConstans.CODE_LOGIN_SUCCESS);
             }
             return new RespData(CodeConstans.CODE_LOGIN_FAILED);
@@ -56,6 +64,23 @@ public class UserController {
         Map<String, Object> map = MapUtil.createMap("currentPage", page, "pageSize", rows);
         PageResult<User> pageResult = userService.getPageResult(map);
         return pageResult;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/delete",method = RequestMethod.POST)
+    public RespData delete(String ids){
+        userService.deleteByIds(ids);
+        return new RespData(CodeConstans.CODE_SUCCESS);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
+    public RespData save(User user,String birthday){
+        user.setStatus(1);
+        user.setInputTime(new Date());
+        user.setAge(DateUtil.getYear(DateUtil.string2Date(birthday, "yyyy-MM-dd")));
+        userService.save(user);
+        return new RespData(CodeConstans.CODE_SUCCESS);
     }
 
 }

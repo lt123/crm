@@ -14,6 +14,10 @@
 
     <script type="text/javascript">
 
+        if(top!=window){
+            top.location.href=window.location.href;
+        }
+
         $(function(){
             $("#dataForm").form({
                 onSubmit:function(){
@@ -49,7 +53,7 @@
         <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="$('#dataForm').form('reset')">重置</a>
     </div>
 
-    <div class="easyui-dialog" id="userDialog" style="width:300px;height:230px;padding: 15px;" data-options="title:'用户登录',buttons:'#btn',modal:true,closable:false">
+    <div class="easyui-dialog" id="userDialog" style="width:300px;height:230px;padding: 15px;" data-options="title:'用户登录',buttons:'#btn',closable:false,closed:false">
         <form action="/user/login" method="post" id="dataForm">
             <table>
                 <tr>

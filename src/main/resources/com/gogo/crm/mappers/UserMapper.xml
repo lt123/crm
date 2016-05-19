@@ -61,7 +61,7 @@
 
     <sql id="columnUpdate">
         <if test = "username != null">
-            ,username = #{username}
+            username = #{username}
         </if>
         <if test = "password != null">
             ,password = #{password}
