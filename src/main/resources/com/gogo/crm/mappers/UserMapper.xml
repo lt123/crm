@@ -11,7 +11,7 @@
         <result property="email" column="email" />
         <result property="age" column="age" />
         <result property="sex" column="sex" />
-        <result property="input_time" column="inputTime" />
+        <result property="inputTime" column="input_time" />
         <result property="status" column="status" />
         <result property="loginIp" column="login_ip" />
         <result property="loginTime" column="login_time" />
@@ -96,7 +96,7 @@
     </sql>
 
     <select id="getById" parameterType="int" resultMap="userMap">
-        select <include refid="columnList" /> from user where id = #{id}
+        select id,<include refid="columnList" /> from user where id = #{id}
     </select>
 
     <delete id="deleteById" parameterType="int">

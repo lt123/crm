@@ -74,8 +74,8 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
-    public RespData save(User user,String birthday){
+    @RequestMapping(value = "/user/saveOrUpdate",method = RequestMethod.POST)
+    public RespData saveOrUpdate(User user,String birthday){
         user.setStatus(1);
         user.setInputTime(new Date());
         user.setAge(DateUtil.getYear(DateUtil.string2Date(birthday, "yyyy-MM-dd")));
@@ -83,4 +83,9 @@ public class UserController {
         return new RespData(CodeConstans.CODE_SUCCESS);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public User get(@PathVariable("id") Integer id){
+        return userService.getById(id);
+    }
 }

@@ -1,10 +1,15 @@
 package com.gogo.crm.model;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * Created by admin on 2016/4/28.
  */
+@JsonIgnoreProperties(value = {"password"} )
 public class User {
     private Integer id;
     private String username;
@@ -18,7 +23,7 @@ public class User {
     private Integer sex = 1;
 
     //用户的录入时间
-    private Date inputTime = new Date();
+    private Date inputTime;
 
     /**
      * -1 离职
@@ -80,6 +85,7 @@ public class User {
         this.sex = sex;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getInputTime() {
         return inputTime;
     }
@@ -104,6 +110,7 @@ public class User {
         this.loginIp = loginIp;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getLoginTime() {
         return loginTime;
     }
@@ -120,6 +127,7 @@ public class User {
         this.lastLoginIp = lastLoginIp;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getLastLoginTime() {
         return lastLoginTime;
     }

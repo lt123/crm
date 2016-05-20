@@ -30,3 +30,12 @@ $.extend($.fn.dialog.defaults, {
     modal:true,
     closed:true
 });
+
+$.extend($.fn.validatebox.defaults.rules, {
+    equals: {
+        validator: function(value,param){
+            return value == $(param[0]).val();
+        },
+        message: '两次密码输入不一致'
+    }
+});

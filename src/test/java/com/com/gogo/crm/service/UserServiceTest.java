@@ -27,7 +27,7 @@ public class UserServiceTest {
 
     @Test
     public void testGetById() throws Exception {
-        System.out.println(userService.getById(1));
+        System.out.println(userService.getById(720).getInputTime());
     }
 
     @Test

@@ -14,13 +14,17 @@
         function removeUser() {
             var rows = $("#userDataGrid").datagrid("getSelections");
                 if(rows.length > 0) {
-                    var ids = new Array();
-                    $.each(rows,function(i,row){
-                        ids[i] = row.id;
-                    })
-                    $.post("/user/delete",{"ids":ids.toString()},function(data) {
-                        if(data.code == 100) {
-                            $("#userDataGrid").datagrid("reload");
+                    $.messager.confirm("温馨提示","确定删除吗",function(r){
+                        if(r) {
+                            var ids = new Array();
+                            $.each(rows,function(i,row){
+                                ids[i] = row.id;
+                            })
+                            $.post("/user/delete",{"ids":ids.toString()},function(data) {
+                                if(data.code == 100) {
+                                    $("#userDataGrid").datagrid("reload");
+                                }
+                            })
                         }
                     })
                 }else{
@@ -29,7 +33,30 @@
         }
 
         function addUser() {
+            $("#dataForm").form("clear");
             $("#userDialog").dialog("open");
+        }
+
+        function edit() {
+            var rows = $("#userDataGrid").datagrid("getSelections");
+            if(rows.length > 0) {
+                // 隐藏密码
+                $("#pwdTr").hide();
+                $("#rpwdTr").hide();
+
+                // 禁用密码验证
+                $("#pwd").validatebox("disableValidation");
+                $("#rpwd").validatebox("disableValidation");
+
+                // 表单提交时 不提交组件
+                $("#pwd").attr("disabled",true);
+
+                // 默认编辑选择的第一行
+                $("#userDialog").dialog("open");
+                $("#dataForm").form("load","/user/" + rows[0].id);
+            }else{
+                $.alert("请最少选择一行");
+            }
         }
 
        $(function(){
@@ -55,7 +82,7 @@
 
     <div id="tb">
         <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addUser()">添加</a>
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit()">编辑</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeUser()">删除</a>
     </div>
 
@@ -83,17 +110,22 @@
     </table>
 
 
-    <div id="userDialog" class="easyui-dialog" style="width: 280px;height: 300px;" data-options="title:'添加用户',buttons:'#btn_form'">
+    <div id="userDialog" class="easyui-dialog" style="width: 280px;height: 300px;" data-options="title:'用户管理',buttons:'#btn_form'">
         <!-- 用户表单 -->
-        <form id="dataForm" action="/user/save" method="post">
+        <form id="dataForm" action="/user/saveOrUpdate" method="post">
+            <input type="hidden" name="id" />
             <table>
                 <tr>
                     <td>用户名：</td>
-                    <td><input type="text" name="username" class="easyui-validatebox" data-options="required:true"/></td>
+                    <td><input type="text" name="username" class="easyui-validatebox" data-options="required:true" /></td>
                 </tr>
-                <tr>
+                <tr id="pwdTr">
                     <td>密&nbsp;码：</td>
-                    <td><input type="password" name="password" /></td>
+                    <td><input id="pwd" type="password" name="password" class="easyui-validatebox" data-options="required:true" /></td>
+                </tr>
+                <tr id="rpwdTr">
+                    <td>确认密码：</td>
+                    <td><input id="rpwd" type="password" class="easyui-validatebox" required="required" validType="equals['#pwd']" /></td>
                 </tr>
                 <tr>
                     <td>邮&nbsp;箱：</td>
@@ -106,8 +138,8 @@
                 <tr>
                     <td>性&nbsp;别：</td>
                     <td>
-                        男：<input name="sex" type="radio" value="1" />
-                        女：<input name="sex" type="radio" value="0" />
+                        男：<input class="easyui-validatebox" name="sex" type="radio" value="1" />
+                        女：<input class="easyui-validatebox" name="sex" type="radio" value="0" />
                     </td>
                 </tr>
             </table>
