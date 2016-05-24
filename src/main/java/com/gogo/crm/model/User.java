@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * Created by admin on 2016/4/28.
  */
@@ -15,7 +17,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Integer age;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date birthday;
     /**
      * 1 男
      * 2 女
@@ -23,7 +26,7 @@ public class User {
     private Integer sex = 1;
 
     //用户的录入时间
-    private Date inputTime;
+    private Date inputTime = new Date();
 
     /**
      * -1 离职
@@ -69,15 +72,16 @@ public class User {
         this.email = email;
     }
 
-    public Integer getAge() {
-        return age;
-    }
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    public Date getBirthday() {
+		return birthday;
+	}
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    public Integer getSex() {
+	public Integer getSex() {
         return sex;
     }
 
@@ -85,7 +89,7 @@ public class User {
         this.sex = sex;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getInputTime() {
         return inputTime;
     }
@@ -110,7 +114,7 @@ public class User {
         this.loginIp = loginIp;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getLoginTime() {
         return loginTime;
     }
@@ -127,7 +131,7 @@ public class User {
         this.lastLoginIp = lastLoginIp;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getLastLoginTime() {
         return lastLoginTime;
     }
@@ -143,7 +147,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
+                ", birthday=" + birthday +
                 ", sex=" + sex +
                 ", inputTime=" + inputTime +
                 ", status=" + status +

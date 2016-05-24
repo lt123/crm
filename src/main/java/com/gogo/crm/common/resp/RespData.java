@@ -1,14 +1,7 @@
 package com.gogo.crm.common.resp;
 
-import com.gogo.crm.common.constans.CodeConstans;
 import com.gogo.crm.common.util.PropertiesUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Created by admin on 2016/5/16.
- */
 public class RespData {
 
     /**

@@ -3,7 +3,6 @@
 <html>
 <head>
     <script type="text/javascript">
-
         function removeUser() {
             var rows = $("#userDataGrid").datagrid("getSelections");
                 if(rows.length > 0) {
@@ -28,6 +27,17 @@
         function addUser() {
             $("#dataForm").form("clear");
             $("#userDialog").dialog("open");
+            
+            // 显示密码界面
+            $("#pwdTr").show();
+            $("#rpwdTr").show();
+            // 提交密码
+            $("#pwd").attr("disabled",false);
+            
+            // 开启密码验证
+            $("#pwd").validatebox("enableValidation");
+            $("#rpwd").validatebox("enableValidation");
+            
         }
 
         function edit() {
@@ -90,13 +100,13 @@
                 <th field="id" width="100" data-options="checkbox:true"></th>
                 <th data-options="field:'username',width:100">用户名</th>
                 <th data-options="field:'email',width:100">邮箱</th>
-                <th data-options="field:'age',width:100">年龄</th>
+                <th data-options="field:'birthday',width:100">生日</th>
                 <th data-options="field:'sex',width:100,formatter:formatUtil.sexFormat">性别</th>
                 <th data-options="field:'loginIp',width:100">本次登录IP</th>
-                <th data-options="field:'loginTime',width:100">本次登录时间</th>
+                <th data-options="field:'loginTime',width:150">本次登录时间</th>
                 <th data-options="field:'lastLoginIp',width:100">上次登录IP</th>
-                <th data-options="field:'lastLoginTime',width:100">上次登录时间</th>
-                <th data-options="field:'inputTime',width:100">录入时间</th>
+                <th data-options="field:'lastLoginTime',width:150">上次登录时间</th>
+                <th data-options="field:'inputTime',width:150">录入时间</th>
                 <th data-options="field:'status',width:100">状态</th>
             </tr>
         </thead>

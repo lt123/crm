@@ -1,6 +1,5 @@
 package com.gogo.crm.dao;
 
-import com.gogo.crm.common.page.PageResult;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

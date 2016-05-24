@@ -1,8 +1,6 @@
 package com.gogo.crm.service;
 
 import com.gogo.crm.common.page.PageResult;
-import com.gogo.crm.dao.IBaseDao;
-import com.gogo.crm.dao.IUserDao;
 import com.gogo.crm.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.sql.DataSource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +24,7 @@ public class UserServiceTest {
 
     @Test
     public void testGetById() throws Exception {
-        System.out.println(userService.getById(720).getInputTime());
+        System.out.println(userService.getById(1));
     }
 
     @Test
@@ -46,7 +43,6 @@ public class UserServiceTest {
             User u = new User();
             u.setUsername("name" + i);
             u.setPassword("admin" + i);
-            u.setAge(i);
             u.setEmail("xxx@qq.com" + i);
             u.setInputTime(new Date());
             u.setLastLoginIp("lastloginip" + i);

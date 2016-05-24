@@ -19,8 +19,9 @@
                             mainTabs.tabs('add',{
                                 title:title,
                                 selected:true,
-                                href:url,
-                                closable:true
+                                //href:url,
+                                closable:true,
+                                content:"<iframe src='"+url+"' frameborder='0' style='width:100%;height:100%' />"
                             })
                         }
                     }

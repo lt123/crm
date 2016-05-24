@@ -72,7 +72,7 @@
                 <tr>
                     <td>验证码：</td>
                     <td>
-                        <input type="text" name="securityCode" id="securityCode" size="3" class="easyui-validatebox"  data-options="required:true" onkeyup="value=value.replace(/[^\w\\/]/ig,'')" />
+                        <input type="text" name="securityCode" id="securityCode" size="3" class="easyui-validatebox"  onkeyup="value=value.replace(/[^\w\\/]/ig,'')" />
                     </td>
                 </tr>
             </table>

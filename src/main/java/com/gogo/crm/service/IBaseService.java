@@ -1,7 +1,6 @@
 package com.gogo.crm.service;
 
 import com.gogo.crm.common.page.PageResult;
-import com.gogo.crm.dao.IBaseDao;
 
 import java.util.List;
 import java.util.Map;

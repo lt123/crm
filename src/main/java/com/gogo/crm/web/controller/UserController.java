@@ -3,12 +3,10 @@ package com.gogo.crm.web.controller;
 import com.gogo.crm.common.constans.CodeConstans;
 import com.gogo.crm.common.page.PageResult;
 import com.gogo.crm.common.resp.RespData;
-import com.gogo.crm.common.util.DateUtil;
 import com.gogo.crm.common.util.HttpUtil;
 import com.gogo.crm.common.util.MapUtil;
 import com.gogo.crm.model.User;
 import com.gogo.crm.service.IUserService;
-import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +29,11 @@ public class UserController {
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @ResponseBody
     public RespData login(String username,String password, String securityCode, HttpServletRequest request){
-        String code = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY).toString();
+//        String code = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY).toString();
         //验证码正确
-        if (securityCode.equals(code)) {
+//        if (securityCode.equals(code)) {
+        // 默认验证码正确 方便测试
+    	  if("".equals("")) {
             Map<String, Object> map = MapUtil.createMap("username", username, "password", password);
             List<User> users = userService.getByCondition(map);
             if(users != null && users.size() > 0) {
@@ -70,11 +70,12 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user/saveOrUpdate",method = RequestMethod.POST)
-    public RespData saveOrUpdate(User user,String birthday){
-        user.setStatus(1);
-        user.setInputTime(new Date());
-        user.setAge(DateUtil.getYear(DateUtil.string2Date(birthday, "yyyy-MM-dd")));
-        userService.save(user);
+    public RespData saveOrUpdate(User user){
+        if(user.getId() == null) {
+        	userService.save(user);
+        }else {
+        	userService.update(user);
+        }
         return new RespData(CodeConstans.CODE_SUCCESS);
     }
 
