@@ -53,11 +53,6 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
-    public String toUserPage() {
-        return "user/list";
-    }
-
     @RequestMapping(value = "/user/list",method = RequestMethod.POST)
     @ResponseBody
     public PageResult<User> list(Integer page, Integer rows){
