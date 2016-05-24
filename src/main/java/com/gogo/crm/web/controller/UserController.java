@@ -76,6 +76,7 @@ public class UserController {
         }else {
         	userService.update(user);
         }
+        System.out.println("UserController.saveOrUpdate()");
         return new RespData(CodeConstans.CODE_SUCCESS);
     }
 
