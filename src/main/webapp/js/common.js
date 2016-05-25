@@ -12,6 +12,21 @@ window.debug = function(msg){
     console.debug(msg)
 }
 
+
+// jquery 相关js
+
+// jquery中可以获取一个"表单"中所有的参数,并且转换为数组,其中包含name,value。 $("#formId").serializeArray()
+$.fn.arrayToJson = function(){
+	var paramJson = {};
+	var paramArray = $(this).serializeArray();
+	$.each(paramArray,function(index,item){
+		paramJson[item.name] = item.value; 
+	});
+	return paramJson;
+}
+
+
+// easyui 相关js
 $.alert = function(msg,callback) {
     $.messager.alert("温馨提示",msg,"info",callback);
 }
@@ -29,6 +44,10 @@ window.formatUtil = {
 $.extend($.fn.dialog.defaults, {
     modal:true,
     closed:true
+});
+
+$.extend($.fn.datebox.defaults, {
+	editable:false
 });
 
 $.extend($.fn.validatebox.defaults.rules, {

@@ -63,7 +63,8 @@
         }
 
         function serchUser() {
-        	debug("eeee");
+        	var data = $("#userSerch").arrayToJson();
+			$("#userDataGrid").datagrid("load",data);
         }
         
         $(function(){
@@ -92,7 +93,7 @@
         <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit()">编辑</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeUser()">删除</a>
    		<div>
-   			<form action="/user/serch">
+   			<form id="userSerch">
    				录入时间: <input type="text" class="easyui-datebox" name="startDate" />
    				 至 <input type="text" class="easyui-datebox" name="endDate" />
    				 关键字:<input type="text" name="username" />

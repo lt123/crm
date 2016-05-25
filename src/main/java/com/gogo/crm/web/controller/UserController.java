@@ -56,9 +56,10 @@ public class UserController {
 
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public PageResult<User> list(Integer page, Integer rows){
-        Map<String, Object> map = MapUtil.createMap("currentPage", page, "pageSize", rows);
-        PageResult<User> pageResult = userService.getPageResult(map);
+    public PageResult<User> list(Integer page, Integer rows,String startDate,String endDate,String username){
+        Map<String, Object> map = MapUtil.createMap("currentPage", page, "pageSize", rows, "startDate", startDate,
+        		"endDate", endDate, "username", username);
+        PageResult<User> pageResult = userService.getByLikeQuery(map);
         return pageResult;
     }
 
@@ -87,7 +88,7 @@ public class UserController {
     }
     
     @ResponseBody
-    @RequestMapping("/serch")
+    @RequestMapping(value = "/serch", method = RequestMethod.POST)
     public PageResult<User> serch(String startDate,String endDate,String username) {
     	Map<String, Object> map = MapUtil.createMap("startDate",startDate,"endDate",endDate,"username",username);
     	return userService.getByLikeQuery(map);
