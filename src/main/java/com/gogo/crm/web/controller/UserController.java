@@ -20,13 +20,14 @@ import java.util.Map;
  * Created by admin on 2016/5/3.
  */
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
 
-    @RequestMapping(value = "/user/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public RespData login(String username,String password, String securityCode, HttpServletRequest request){
 //        String code = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY).toString();
@@ -53,7 +54,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/list",method = RequestMethod.POST)
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
     public PageResult<User> list(Integer page, Integer rows){
         Map<String, Object> map = MapUtil.createMap("currentPage", page, "pageSize", rows);
@@ -62,14 +63,14 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public RespData delete(String ids){
         userService.deleteByIds(ids);
         return new RespData(CodeConstans.CODE_SUCCESS);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/saveOrUpdate",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveOrUpdate",method = RequestMethod.POST)
     public RespData saveOrUpdate(User user){
         if(user.getId() == null) {
         	userService.save(user);
@@ -80,8 +81,15 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User get(@PathVariable("id") Integer id){
         return userService.getById(id);
+    }
+    
+    @ResponseBody
+    @RequestMapping("/serch")
+    public PageResult<User> serch(String startDate,String endDate,String username) {
+    	Map<String, Object> map = MapUtil.createMap("startDate",startDate,"endDate",endDate,"username",username);
+    	return userService.getByLikeQuery(map);
     }
 }

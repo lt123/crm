@@ -19,10 +19,12 @@
         <result property="lastLoginTime" column="last_login_time" />
     </resultMap>
 
+	<!-- 表的字段(去掉主键) -->
     <sql id="columnList">
         username,password,email,birthday,sex,input_time,status,login_ip,login_time,last_login_ip,last_login_time
     </sql>
 
+	<!-- 查询的sql条件 -->
     <sql id="columnWhere">
         <if test = "username != null">
             and username = #{username}
@@ -59,6 +61,47 @@
         </if>
     </sql>
 
+	<!-- 需要模糊查询的sql条件 -->
+    <sql id="columnLike">
+        <if test = "username != null">
+            and username like CONCAT('%',#{username},'%')
+        </if>
+        <if test = "password != null">
+            and password like CONCAT('%',#{password},'%')
+        </if>
+        <if test = "email != null">
+            and email like CONCAT('%',#{email},'%')
+        </if>
+        <if test = "birthday != null">
+            and birthday like CONCAT('%',#{birthday},'%')
+        </if>
+        <if test = "sex != null">
+            and sex like CONCAT('%',#{sex},'%')
+        </if>
+        <if test = "startDate != null">
+            and input_time >= #{startDate}
+        </if>
+        <if test = "endDate != null">
+            and input_time <![CDATA[<=]]> #{endDate}	
+        </if>
+        <if test = "status != null">
+            and status like CONCAT('%',#{status},'%')
+        </if>
+        <if test = "loginIp != null">
+            and login_ip like CONCAT('%',#{loginIp},'%')
+        </if>
+        <if test = "loginTime != null">
+            and login_time like CONCAT('%',#{loginTime},'%')
+        </if>
+        <if test = "lastLoginIp != null">
+            and last_login_ip like CONCAT('%',#{lastLoginIp},'%')
+        </if>
+        <if test = "lastLoginTime != null">
+            and last_login_time like CONCAT('%',#{lastLoginTime},'%')
+        </if>
+    </sql>
+
+	<!-- 需要修改的sql条件 -->
     <sql id="columnUpdate">
         <if test = "username != null">
             username = #{username}
@@ -94,15 +137,18 @@
             ,last_login_time = #{lastLoginTime}
         </if>
     </sql>
-
+    
+	<!-- 根据id查询数据 -->
     <select id="getById" parameterType="int" resultMap="userMap">
         select id,<include refid="columnList" /> from user where id = #{id}
     </select>
 
+	<!-- 根据id删除数据 -->
     <delete id="deleteById" parameterType="int">
         delete from user where id = #{id}
     </delete>
 
+	<!-- 根据多个id删除数据 -->
     <delete id="deleteByIds" parameterType="string">
         delete from user where id in
         <foreach collection="list" item="list" open="(" close=")" separator=",">
@@ -110,6 +156,7 @@
         </foreach>
     </delete>
 
+	<!-- 根据对象id修改数据库 -->
     <update id="update" parameterType="User">
         update user
         <set>
@@ -118,11 +165,13 @@
         where id = #{id}
     </update>
 
+	<!-- 保存对象到db中 -->
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         insert into user(<include refid="columnList" />)
         values(#{username},#{password},#{email},#{birthday},#{sex},#{inputTime},#{status},#{loginIp},#{loginTime},#{lastLoginIp},#{lastLoginTime})
     </insert>
 
+	<!-- 根据条件查询 -->
     <select id="getByCondition" parameterType="map" resultMap="userMap">
         select id,<include refid="columnList" />
         from user
@@ -137,10 +186,33 @@
         </if>
     </select>
     
+    <!-- 根据条件查询符合数据的总条数 -->
     <select id="getCountByCondition" parameterType="map" resultType="int">
         select count(1) from user
         <where>
            <include refid="columnWhere" />
+        </where>
+    </select>
+    
+    <!-- 根据条件模糊查询 -->
+    <select id="getByLikeQuery" parameterType="map" resultMap="userMap" resultType="list">
+        select id,<include refid="columnList" /> from user
+        <where>
+           <include refid="columnLike" />
+        </where>
+        <if test="sort != null and sort == true">
+            order by id desc
+        </if>
+        <if test="currentPage != null and pageSize != null">
+            limit #{currentPage},#{pageSize}
+        </if>
+    </select>
+    
+      <!-- 根据条件模糊查询总数 -->
+    <select id="getCountByLikeQuery" parameterType="map" resultType="int">
+        select count(1) from user
+        <where>
+           <include refid="columnLike" />
         </where>
     </select>
 </mapper>

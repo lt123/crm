@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ListModel;
+
 /**
  * 所有dao的公共方法
  * @param <T>  model类型
@@ -57,5 +59,19 @@ public interface IBaseDao<T,PK> {
      * @param map
      * @return
      */
-    Integer getCountByCondition(Map<String, Object> map);
+    public Integer getCountByCondition(Map<String, Object> map);
+    
+    /**
+     * 根据条件模糊查询
+     * @param map
+     * @return
+     */
+    public List<T> getByLikeQuery(Map<String, Object> map);
+    
+    /**
+     * 根据条件模糊查询总条数
+     * @param map
+     * @return
+     */
+    public Integer getCountByLikeQuery(Map<String, Object> map);
 }

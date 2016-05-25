@@ -2,12 +2,14 @@ package com.gogo.crm.service;
 
 import com.gogo.crm.common.page.PageResult;
 import com.gogo.crm.model.User;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -89,4 +91,18 @@ public class UserServiceTest {
         PageResult<User> pageResult = userService.getPageResult(map);
         System.out.println(pageResult);
     }
+    
+    @Test
+	public void testGetByLikeQuery() throws Exception {
+    	Map<String,Object> map = new HashMap<>();
+    	map.put("username", "name1");
+    	map.put("startDate", "2015-02-05");
+    	map.put("endDate", "2015-03-05");
+    	PageResult<User> pageResult = userService.getByLikeQuery(map);
+    	List<User> users = pageResult.getRows();
+    	for (User user : users) {
+			System.out.println(user);
+		}
+    	System.out.println(pageResult);
+	}
 }

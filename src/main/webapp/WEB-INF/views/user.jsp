@@ -62,22 +62,26 @@
             }
         }
 
-       $(function(){
-           $("#dataForm").form({
-               onSubmit:function(){
-                   return $("#dataForm").form('validate');
-               },
-               success:function(data){
-                   data = $.parseJSON(data);
-                   if(data.code == "100") {
-                       $("#userDialog").dialog("close");
-                       $.alert(data.msg,function(){
-                           $("#userDataGrid").datagrid("reload");
-                       });
-                   }
-               }
-           })
-       })
+        function serchUser() {
+        	debug("eeee");
+        }
+        
+        $(function(){
+            $("#dataForm").form({
+                onSubmit:function(){
+                    return $("#dataForm").form('validate');
+                },
+                success:function(data){
+                    data = $.parseJSON(data);
+                    if(data.code == "100") {
+                        $("#userDialog").dialog("close");
+                        $.alert(data.msg,function(){
+                            $("#userDataGrid").datagrid("reload");
+                        });
+                    }
+                }
+            })
+        })
 
     </script>
 </head>
@@ -87,6 +91,14 @@
         <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="addUser()">添加</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="edit()">编辑</a>
         <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="removeUser()">删除</a>
+   		<div>
+   			<form action="/user/serch">
+   				录入时间: <input type="text" class="easyui-datebox" name="startDate" />
+   				 至 <input type="text" class="easyui-datebox" name="endDate" />
+   				 关键字:<input type="text" name="username" />
+   				<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="serchUser()">搜索</a>
+   			</form>
+   		</div>
     </div>
 
     <div id="btn_form">

@@ -73,4 +73,15 @@ public class BaseServiceImpl<T,PK> implements IBaseService<T,PK> {
         List<T> rows = baseDao.getByCondition(map);
         return new PageResult<T>(currentPage,pageSize,count,rows);
     }
+
+	@Override
+	public PageResult<T> getByLikeQuery(Map<String, Object> map) {
+		Integer currentPage = map.get("currentPage") == null ? 1:Integer.parseInt(map.get("currentPage").toString());
+        Integer pageSize = map.get("pageSize") == null ? 10:Integer.parseInt(map.get("pageSize").toString());
+        map.put("currentPage",(currentPage - 1) * pageSize);
+        map.put("pageSize",pageSize);
+        List<T> rows = baseDao.getByLikeQuery(map);
+        Integer count = baseDao.getCountByLikeQuery(map);
+		return new PageResult<>(currentPage,pageSize,count,rows);
+	}
 }

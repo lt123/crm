@@ -24,14 +24,19 @@ public class MapUtil {
         Map<String,Object> map = new HashMap<>();
         if(args != null && args.length % 2 == 0){
             for (int i = 0; i < args.length; i++) {
-                map.put(args[i++].toString(),args[i]);
+            	String key = args[i++].toString();
+            	Object value = args[i];
+            	// 去掉没有value的值
+            	if(value != null && StringUtil.isNotBlank(value.toString())) {
+            		map.put(key, value);
+            	}
             }
         }
         return map;
     }
 
     public static void main(String[] args) {
-        Map<String, Object> map = createMap("user", "a", "pswd", "b","");
-        System.out.println("args = [" + map + "]");
+        Map<String, Object> map = createMap("user", "a", "pswd", "");
+        System.out.println(map);
     }
 }

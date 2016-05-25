@@ -62,4 +62,11 @@ public interface IBaseService<T,PK> {
      * @return
      */
     public PageResult<T> getPageResult(Map<String,Object> map);
+    
+    /**
+     * 根据条件模糊查询
+     * @param map
+     * @return
+     */
+    public PageResult<T> getByLikeQuery(Map<String, Object> map);
 }
